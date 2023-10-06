@@ -1,0 +1,388 @@
+<!-- Copy the starter template then modify it -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!--
+        For using BS Icons:
+        How to use Bootstrap icons?
+        Step 1: Include the following Bootstrap CDN link in the <head> section of you HTML document.
+        bootstrap-icons => Official open source SVG icon library for Bootstrap
+        link: https://cdnjs.com/libraries/bootstrap-icons
+
+        NOTE: Copy the link for the CSS minified file
+     -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.1/font/bootstrap-icons.min.css"
+        integrity="sha512-WYaDo1TDjuW+MPatvDarHSfuhFAflHxD87U9RoB4/CSFh24/jzUHfirvuvwGmJq0U7S9ohBXy4Tfmk2UKkp2gA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>BS Navbar and Accordion</title>
+</head>
+
+<body>
+    <!-- Starting with the HTML5 header element to include the entire BS navbar code -->
+    <header>
+
+        <!--
+        Navbar: You can build it step by step or copy the navbar template and modify it
+        
+        Navbar:   documents => components => navbar
+        link: https://getbootstrap.com/docs/5.2/components/navbar/
+
+        Navbars require a wrapping:
+        .navbar with .navbar-expand{-sm|-md|-lg|-xl|-xxl}
+        for responsive collapsing and color scheme classes.
+
+        documents => components => navbar
+
+        classes:
+        - navbar
+        - navbar-expand-lg => expand the navbar only on large screens
+        under large screen => will be a hamburger menu!
+
+        NOTE:
+        Since the navbar background is dark, 
+        we need to inform BS that the navbar is "dark"
+        So BS can apply a light color text. 
+        We can just do it by adding the class "navbar-dark" :-)
+
+        Choose from:
+        These two classes will affect the text color:
+        - .navbar-light for use with light background colors => This will add a black text color
+        - .navbar-dark for dark background colors => This will add a white text color
+
+        You can customize with .bg-* utilities.
+        These .bg-color classes to change the background color of the navbar
+        (.bg-primary, .bg-success, .bg-info, .bg-warning, .bg-danger, .bg-secondary, .bg-dark and .bg-light)
+
+        ==========================================================
+        One Final Extra Addon is giving a navbar a fix positioning:
+        Use BS position utilities to place navbars in non-static positions.
+        Choose from fixed to the top, fixed to the bottom, or stickied to the top (scrolls with the page until it reaches the top, then stays there).
+
+        Using the BS class: .fixed-top
+
+        Link: https://getbootstrap.com/docs/5.2/components/navbar/#placement
+
+        Very Important Note:
+        Using position property will affect the normal flow of any block-level element
+        so the elements beneath it will jump above.
+        As this what happens when using BS position of fixed with nav
+        To fix it, we can add our custom CSS (Check the code)
+
+        Part#1: main container <nav> element
+    -->
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+            <!--
+            Part#2: second main container div element
+
+            the div.container to wrap the entire nav elements!
+            .container => sets a max-width at each responsive breakpoint
+
+            We can change "container-fluid" to "container" if we like to do it:
+        -->
+            <div class="container">
+                <!--
+                Navbar content: Adding the logo/branding as link to the home page
+                class "navbar-brand" for your company, product, or project name.
+                Link: https://getbootstrap.com/docs/5.2/components/navbar/?#nav
+            -->
+                <a class="navbar-brand" href="#">ABC Advanced Academy</a>
+
+                <!--
+                Adding the button for hamburger icon
+                This button will appear only when we the screen is less than large
+                So it has this:
+                .navbar-toggler => for use with BS collapse plugin and other navigation toggling behaviors.
+
+                **********************
+                Using data attributes:
+                **********************
+                HTML5 is designed with extensibility in mind for data 
+                that should be associated with a particular element 
+                but need not have any defined meaning. 
+                data-* attributes allow us to store extra information on standard,
+                semantic HTML elements without other hacks 
+                such as non-standard attributes, or extra properties on DOM.
+                link: https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes
+
+                data-* Attributes:
+                * The data-* attribute is used to store custom data private to the page or application.
+                * The data-* attribute gives us the ability to embed custom data attributes on all HTML elements.
+
+                NOTE:
+                These two attributes:
+                - data-bs-target
+                - aria-controls
+                must have the value of the "id" attribute for the div element
+                that contains the nav elements
+
+                ARIA enables developers to describe their widgets in more detail
+                by adding special attributes to the markup.
+                Designed to fill the gap between standard HTML tags and the desktop-style controls
+                found in dynamic web applications,
+                ARIA provides roles and states that describe the behavior of most familiar UI widgets.
+
+                The original link for this article:
+                https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA
+
+                You can check this Youtube video title:
+                ARIA, Accessibility APIs and coding like you give a damn! 
+                – Léonie Watson / Front-Trends 2015
+                The link is: https://youtu.be/qdB8SRhqvFc
+
+                Or This Youtube channel: W3C Web Accessibility Initiative (WAI)
+            -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <!--
+                    Adding the span element for the hamburger icon
+                    The span element for loading the icon in small devices screens 
+                -->
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!--
+                All nav elements are inclosed with another div:
+                This div element to wrap the ul and its li items
+                the two classes .collapse and .navbar-collapse 
+                are for grouping and hiding navbar contents by a parent breakpoint
+                .collapse => hides content => make the nav collapsed in smaller screens
+
+                Both: .collapse and .navbar-collapse
+                are used for grouping and hiding navbar contents by a parent breakpoint.
+
+                Notice that the "id" value is used by BS to target this div element
+                Through the toggle button (the hamburger icon)
+                To hide/show (toggle) the nav elements
+
+                So this id value will be used with attribute "data-target" inside the button element
+            -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!--
+                    The ul element:
+                    .navbar-nav => for a full-height and lightweight navigation
+                    (including support for dropdowns).
+
+                    Where property is one of:
+                    m - for classes that set margin
+                    p - for classes that set padding
+
+                    NOTES:
+                    For Auto margins, We can use the "Flexbox" options
+                    which mix flex alignments with auto margins:
+                    - .me-auto => (me) margin-end pushing/moving the current element to the left
+                    - .ms-auto => (ms) margin-start pushing/moving the current element to the right
+
+                    in some situation when using div with a elements, we can also use:
+                    - .ml-auto => (ml) margin-lef having margin on the left to push/move current element
+
+                    It's nice to have the navigation item on the right side:  .ms-auto
+
+                    Link: https://getbootstrap.com/docs/5.2/utilities/flex/#auto-margins
+                    Link: https://getbootstrap.com/docs/5.0/utilities/spacing/#notation
+
+                    - Using horizontal margin utilities like .ms-auto as spacers:
+                    - removing this .ms-auto will align the nav list items besides the logo (no good!)
+
+                    For more reading and example:
+                    .my-2
+                    * m: for margins (adding margins)
+                    * y: for both top and bottom margins 
+                    (think about the y horizontal axis)
+                    * -2:  Classes are built from a default Sass map 
+                    ranging from .25rem to 3rem
+                    so 2 sets margin or padding to .5rem (8px if font-size is 16px)
+
+                    For more info:
+                    https://www.w3schools.com/bootstrap4/bootstrap_utilities.asp
+                    Or:
+                    https://www.w3schools.com/bootstrap5/bootstrap_utilities.php
+
+                    W3Schools Table:
+                    Where size is one of:
+                    0 - sets margin or padding to 0
+                    1 - sets margin or padding to .25rem (4px if font-size is 16px)
+                    2 - sets margin or padding to .5rem (8px if font-size is 16px)
+                    3 - sets margin or padding to 1rem (16px if font-size is 16px)
+                    4 - sets margin or padding to 1.5rem (24px if font-size is 16px)
+                    5 - sets margin or padding to 3rem (48px if font-size is 16px)
+                    auto - sets margin to auto
+
+                    .mb-2 => set the bottom margin to 2 in all screen sizes
+                    .my-lg-0 => set the top/bottom margin to 0 in large screen size only
+
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <!--
+                            Add the .active class on .nav-link to indicate the current page.
+                        -->
+                            <a class="nav-link active" aria-current="page" href="#home">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Curriculum</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Our Instructors</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#faq">FAQ</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#testimonial">Students Testimonial</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact Us</a>
+                        </li>
+                    </ul>
+                </div> <!-- end div.collapse -->
+            </div> <!-- end div.container-fluid -->
+        </nav>
+    </header>
+
+    <!--
+        Accordion:
+        Build vertically collapsing accordions in combination with our Collapse JavaScript plugin.
+
+        Link: https://getbootstrap.com/docs/5.2/components/accordion/
+    -->
+    <section id="faq">
+        <!--
+            Adding the div.container again to encapsulate this section withing the page (main contents) margins
+
+            Not adding div.container will make your section expand all the way from left to the right edge of the browser
+        -->
+        <div class="container">
+            <h2 class="text-center">Frequently Asked Questions</h2>
+            <!--
+                Starting with the accordion first BS template (example)
+                Link: https://getbootstrap.com/docs/5.2/components/accordion/#example
+
+                Then we can customize its ids values:
+                For example accordionExample => accordFAQ
+                HINT: Don't forget to use CTRL+H for replacing all (but you can go by one by one also)
+            -->
+            <div class="accordion" id="accordFAQ">
+                <!-- First accordion div item -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <!-- 
+                            Customize the text inside each button.
+                            Each button contains a question
+                         -->
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What I will learn?
+                        </button>
+                        <!--
+                            Notice that => data-bs-target="#collapseOne"
+                            in the button is matching its corresponding div => div id="collapseOne"
+
+                            You can change them like question and answer if you want...
+                         -->
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordFAQ">
+                        <!-- 
+                            Customize the text inside div.accordion-body.
+                            The answer of its related question
+                        -->
+                        <div class="accordion-body">
+                            <p>You will study the front end and the back end tools.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second accordion div item -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Should I have any experience before joining this program
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordFAQ">
+                        <div class="accordion-body">
+                            <p>No need, as this program is designed to take you from A to Z.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third accordion div item -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Can I take this program in the weekends only?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                        data-bs-parent="#accordFAQ">
+                        <div class="accordion-body">
+                            <p>Yes, We have a special feature for Saturdays</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 
+                    Fourth accordion div item
+                    
+                    Adding this extra accordion element 
+                    by copying the same code above for the third accordion
+                    But we have to consider this simple changes:
+                    - id="headingFour" instead id="headingThree"
+                    - data-bs-target="#collapseFour" instead of data-bs-target="#collapseThree" 
+                    - aria-controls="collapseFour" instead of aria-controls="collapseThree"
+                    - id="collapseFour" instead of id="collapseThree" 
+                    - aria-labelledby="headingFour" instead of aria-labelledby="headingThree"
+                -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Can I use PC or MAC computer
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                        data-bs-parent="#accordFAQ">
+                        <div class="accordion-body">
+                            <p>Yes, you can use either one</p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end div.accordion -->
+        </div> <!-- end div.container -->
+    </section> <!-- end section#faq-->
+
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>
